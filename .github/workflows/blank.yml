@@ -1,5 +1,27 @@
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Ola do PC Virtual!");
-    }
-}
+name: Java Build CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o codigo do repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar o Java (JDK 17)
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Compilar o projeto Java
+      run: javac Main.java
+
+    - name: Executar testes ou o programa
+      run: java Main
